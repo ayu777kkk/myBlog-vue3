@@ -1,6 +1,6 @@
 import axios from "axios";
-import { getToken } from "@/composables/cookie";
-import { showMessage } from '@/composables/util';
+import { getToken } from "@/composables/cookie"
+import { showMessage } from '@/composables/util'
 
 // 创建 Axios 实例
 const instance = axios.create({
@@ -11,6 +11,15 @@ const instance = axios.create({
 // 添加请求拦截器
 instance.interceptors.request.use(function (config) {
     // 在发送请求之前做些什么
+    const token = getToken()
+    console.log('统一添加请求头中的 Token:' + token)
+
+    // 当 token 不为空时
+    if (token) {
+        // 添加请求头, key 为 Authorization，value 值的前缀为 'Bearer '
+        config.headers['Authorization'] = 'Bearer ' + token
+    }
+
     return config;
 }, function (error) {
     // 对请求错误做些什么
@@ -33,24 +42,6 @@ instance.interceptors.response.use(function (response) {
 
     return Promise.reject(error)
 })
-
-// 添加请求拦截器
-instance.interceptors.request.use(function (config) {
-    // 在发送请求之前做些什么
-    const token = getToken()
-    console.log('统一添加请求头中的 Token:' + token)
-
-    // 当 token 不为空时
-    if (token) {
-        // 添加请求头, key 为 Authorization，value 值的前缀为 'Bearer '
-        config.headers['Authorization'] = 'Bearer ' + token
-    }
-
-    return config;
-}, function (error) {
-    // 对请求错误做些什么
-    return Promise.reject(error)
-});
 
 // 暴露出去
 export default instance;
