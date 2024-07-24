@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-slate-800 h-screen text-white menu-container transition-all" :style="{ width: menuStore.menuWidth }">
+    <div class="fixed overflow-y-auto bg-slate-800 h-screen text-white menu-container transition-all" :style="{ width: menuStore.menuWidth }">
         <!-- 顶部 Logo, 指定高度为 64px, 和右边的 Header 头保持一样高 -->
         <div class="flex items-center justify-center h-[64px]">
              Myblog Admin <!-- 这里可以换成自己的 Logo,见6.5 -->
@@ -60,7 +60,7 @@ const menus = [
     {
         'name': '博客设置',
         'icon': 'Setting',
-        'path': '/admin/blog/setting',
+        'path': '/admin/blog/settings',
     },
 ]
 
